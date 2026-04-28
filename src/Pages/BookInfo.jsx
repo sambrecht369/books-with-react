@@ -10,20 +10,23 @@ import Cart from "./Cart";
 
 
 
-const BookInfo = (props) => {
-    const { books, addToCart, cart } = props;
+const BookInfo = ({ books, addToCart, cart }) => {
     const { id } = useParams();
     const book = books.find((book) => +book.id === +id);
-    const [added, setAdded] = useState(false);
+    const [added] = useState(false);
 
-    function handleAddToCart(book) {
+
+    
+
+    function addBookToCart(book) {
         addToCart(book);
+        
     }
-
-    function bookExistsOnCart() {
-        return cart.find(book => book.id === +id);
-    }
-
+     
+    
+function bookExistsOnCart() {
+    return cart.find((book) => book.id === +id);
+}
 
     return (
         <div id="books__body">
@@ -60,10 +63,10 @@ const BookInfo = (props) => {
                                     </p>
                                 </div>
                                 {bookExistsOnCart() ? (
-                                  <Link to="/cart" className="book__link">
+                                  <Link to={`/cart`} className="book__link">
                                   <button className="btn">Checkout</button></Link>
                                 ) : (
-                                    <button className="btn" onClick={() => handleAddToCart(book)}>Add to cart</button>
+                                    <button className="btn" onClick={() => addBookToCart(book)}>Add to cart</button>
                                 )}
                             </div>
                         </div>
